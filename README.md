@@ -2,7 +2,7 @@
 
 An AI-powered tool that generates tailored, specific cover letters by matching your resume against a job description — instead of generic, templated fluff.
 
-**🔗 Live Demo:** [Add your Streamlit Cloud URL here after deployment]
+**🔗 Live Demo:** https://cover-letter-by-resume.streamlit.app/
 
 ![Demo](demo.gif)
 <!-- Record a short GIF of the upload -> generate -> download flow and add it here -->
