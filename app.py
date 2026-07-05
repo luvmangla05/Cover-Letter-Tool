@@ -1,8 +1,5 @@
 """
 AI Cover Letter Generator
---------------------------
-Full Stack AI Engineer path
-
 Flow: Resume (PDF/text) + Job Description -> LLM extraction -> matching -> generation -> editable output
 """
 from langchain_huggingface import HuggingFaceEndpoint, ChatHuggingFace
@@ -13,9 +10,9 @@ from pypdf import PdfReader
 from langchain_core.prompts import ChatPromptTemplate
 
 
-# ---------------------------------------------------------
-# PAGE CONFIG (must be the first Streamlit command in the script)
-# ---------------------------------------------------------
+
+# PAGE CONFIG (the first Streamlit command)
+
 st.set_page_config(
     page_title="AI Cover Letter Generator",
     layout="wide",
@@ -24,9 +21,9 @@ st.set_page_config(
 
 load_dotenv()
 
-# ---------------------------------------------------------
-# LLM SETUP (cached so it only initializes once, not on every rerun)
-# ---------------------------------------------------------
+
+# LLM SETUP - Boilerplate kinda thing....
+
 @st.cache_resource
 def load_model():
     llm = HuggingFaceEndpoint(
@@ -40,11 +37,9 @@ def load_model():
 
 model = load_model()
 
-# ---------------------------------------------------------
+
 # SESSION STATE INIT
-# ---------------------------------------------------------
-# Streamlit reruns the whole script on every interaction,
-# so anything that needs to persist across reruns lives here.
+
 defaults = {
     "resume_text": "",
     "jd_text": "",
@@ -57,9 +52,9 @@ for key, value in defaults.items():
         st.session_state[key] = value
 
 
-# ---------------------------------------------------------
-# HELPER FUNCTIONS
-# ---------------------------------------------------------
+
+# HELPER FUNCTIONS...pdf and all
+
 def extract_pdf_text(uploaded_file) -> str:
     """Extract raw text from an uploaded PDF file object."""
     reader = PdfReader(uploaded_file)
@@ -96,9 +91,10 @@ def generate_cover_letter(resume_text: str, jd_text: str, tone: str) -> str:
     return response.content
 
 
-# ---------------------------------------------------------
+
 # SIDEBAR — Settings / Controls
 # ---------------------------------------------------------
+
 with st.sidebar:
     st.header("Settings")
 
@@ -124,20 +120,20 @@ with st.sidebar:
         )
 
 
-# ---------------------------------------------------------
 # HEADER
-# ---------------------------------------------------------
+
 st.title("AI Cover Letter Generator")
 st.caption("Turn your resume + a job description into a tailored cover letter in seconds.")
 st.divider()
 
 
-# ---------------------------------------------------------
+
 # MAIN LAYOUT — Two columns: Inputs | Output
-# ---------------------------------------------------------
+
 left_col, right_col = st.columns([1, 1], gap="large")
 
-# -------------------- LEFT: INPUTS --------------------
+# LEFT: INPUTS 
+
 with left_col:
     st.subheader("Your Resume")
 
@@ -185,7 +181,8 @@ with left_col:
         "Generate Cover Letter", type="primary", use_container_width=True
     )
 
-# -------------------- RIGHT: OUTPUT --------------------
+# RIGHT: OUTPUT 
+
 with right_col:
     st.subheader("Your Cover Letter")
 
@@ -226,8 +223,7 @@ with right_col:
         st.info("Your generated cover letter will appear here once you click Generate.")
 
 
-# ---------------------------------------------------------
 # FOOTER
-# ---------------------------------------------------------
+
 st.divider()
 st.caption("Built by Luv Mangla")
