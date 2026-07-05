@@ -97,4 +97,4 @@ streamlit run app.py
 
 ## 👤 Author
 
-Built by **Luv Mangla** as part of an AI Engineering learning roadmap (Phase 0 project).
+Built by **Luv Mangla** 
